@@ -1,10 +1,12 @@
 // #[allow(unused_variables)] 
 
 use std::ops::{Range, RangeInclusive}; // importing from std ops only Range and RangeInclusive
+use std::mem::size_of_val;
 
 fn main() {
     one();
     two();
+    three();
 }
 
 fn one() {
@@ -147,20 +149,60 @@ fn two() {
 
     //     let z: i32 = 10;
     }
+
+    // just i funny reminder
+    /*
+        |-------------------------------------------------------|
+        |  0   |   0  |   1   |   0  |   1   |   0  |   1   |  0  | > 42 in 8bit
+        | 2(7) | 2(6) | 2(5) | 2(4) | 2(3) | 2(2) | 2(1) | 2(0) |
+        | 128|   64   | 32   |  16  |  8  |   4  |  2   |   1  |
+        |-----------------------------------------------------|
+    
+        so it's mean 
+        i8 min: -128 and max 127
+        but
+        u8 min: 0 and max 255
+    
+        for float f32-f64 by IEEE-754 specification
+    */
 }
 
-// just i funny reminder
-/*
-    |-------------------------------------------------------|
-    |  0   |   0  |   1   |   0  |   1   |   0  |   1   |  0  | > 42 in 8bit
-    | 2(7) | 2(6) | 2(5) | 2(4) | 2(3) | 2(2) | 2(1) | 2(0) |
-    | 128|   64   | 32   |  16  |  8  |   4  |  2   |   1  |
-    |-----------------------------------------------------|
+fn three() {
+    // char 
+    let c1: char = 'a'; // 4 bytes
+    let c2: char = '本';// also 4 bytes
+    // println!("{},{}", size_of_val(&c1),size_of_val(&c2));
+    assert_eq!(size_of_val(&c1), 4);
+    assert_eq!(size_of_val(&c2), 4);
 
-    so it's mean 
-    i8 min: -128 and max 127
-    but
-    u8 min: 0 and max 255
+    // let c1: &str = "a" // is not a char
+    print_char(c1);
 
-    for float f32-f64 by IEEE-754 specification
-*/
+    fn print_char(_c: char) {
+        // println!("{}", _c);
+    }
+
+    let t: bool = false;
+    if !t {
+        // println!("True")
+    }
+
+    let f: bool = false;
+    let t: bool = true && false;
+    assert_eq!(t,f);
+
+    let t: () = ();
+    let _t: (i32,i32) = (2,3);
+    assert_eq!(t,implicitly_ret_unit());
+
+    assert!(size_of_val(&t) == 0);
+
+    // char 4 bytes
+    // bool 0 or 1 byte
+    // Unit 0 bytes
+
+    fn implicitly_ret_unit() -> () {
+        // println!("return ()");
+    }
+
+}
