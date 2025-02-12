@@ -289,4 +289,30 @@ fn five() {
     let _s: String = t.0;
     // println!("{:?}", t.1); // i cant use t and t.0, but still can use t.1
 
+    let c:char = 'c';
+    let r1: &char = &c; // create ref
+    let ref r2 = *r1; // REF FOR REF LOL
+
+    assert_eq!(r1,r2);
+    assert_eq!(*r1,c); // * returns value
+
+    assert_eq!(format!("{:p}", &c), format!("{:p}", r1));
+
+    let m: &str = "stringc!"; // like String but ref
+    let mut s: String = String::from(""); // we cant use &str here
+    s.push_str("string");
+    s.push('c'); // ? actually, why
+    s += "!";
+
+    assert_eq!(s, m);
+
+    let s1: String = s.replace("stringc", "hello mom");
+    assert_eq!(s1, "hello mom!");
+
+    let s3: String = s1 + m;
+    assert_eq!(s3, "hello mom!stringc!");
+
+    // also need mention, 0..1 weird and mean's more like 0..0, so if we used 0..5 it's means give as items from 0 > 5 not 0 >= 5
+    let h: &str = &s3[0..1]; // get first char in s3
+    assert_eq!("h", h);
 }
