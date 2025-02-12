@@ -8,6 +8,7 @@ fn main() {
     two();
     three();
     four();
+    five();
 }
 
 fn one() {
@@ -242,4 +243,50 @@ fn four() {
 
     assert_eq!(a, 45);
     
+}
+
+fn five() {
+    // never_returns();
+
+    // fn never_returns() -> ! {
+    //     panic!("That's execute an ERROR");
+    // }
+
+    let q: () = un();
+
+    fn un() {
+        // unimplemented!()
+        // todo!()
+    }
+
+    assert_eq!(q, ());
+
+    // ownership 
+    let x: String = String::from("hello");
+    let _s: String = x.clone(); // so we need to use clone() because if we put just x here, the x variable itself will be removed
+    // println!("{}, {}", x,_s);
+
+    let x: Box<i32> = Box::new(1);
+    let mut y: Box<i32> = Box::new(1);
+    *y = 5;
+    assert_eq!(*x, 1);
+
+    // struct Person {
+    //     name: String,
+    //     age: Box<u8>,
+    // }
+
+    // let person: Person = Person {
+    //     name: String::from("Alice"),
+    //     age: Box::new(20)
+    // };
+
+    // let Person {name,ref age} = person;
+
+    // println!("Person with name: {} at age of {}", name, age);
+
+    let t: (String, String) = (String::from("hello"), String::from("world"));
+    let _s: String = t.0;
+    // println!("{:?}", t.1); // i cant use t and t.0, but still can use t.1
+
 }
