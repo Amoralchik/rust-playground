@@ -7,6 +7,7 @@ fn main() {
     one();
     two();
     three();
+    four();
 }
 
 fn one() {
@@ -205,4 +206,40 @@ fn three() {
         // println!("return ()");
     }
 
+}
+
+fn four() {
+    let x:u32 = 5u32;
+
+    // statement?
+    let _y:u32 = {
+        // expressions
+        let x_squared: u32 = x * x;
+        let x_cube: u32 = x_squared * x;
+        
+        // this will be returned and assigned to "y"
+        x_cube + x_squared + x
+    };
+
+    let _c: () = {
+        // code with semicolons don't returns
+        // 2 * _y;
+    };
+
+    let b:i32  = {
+        let x: i32 = 1;
+        x + 2
+    };
+
+    assert_eq!(b, 3);
+
+    let a: i32 = sum(2,43);
+
+    fn sum(q: i32, w:i32) -> i32 {
+        // return q+w; // this also works
+        q + w
+    }
+
+    assert_eq!(a, 45);
+    
 }
