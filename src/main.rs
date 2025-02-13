@@ -10,6 +10,7 @@ fn main() {
     four();
     five();
     six();
+    seven();
 }
 
 fn one() {
@@ -342,7 +343,102 @@ fn six() {
     assert_eq!(slice,slice2);
 
     let mut s: String = String::from("value");
-    let _word: &str = &s[..1];
+    let word: &str = &s[..1];
+    assert_eq!(word,"v");
+
     s.clear();
+
+}
+
+fn seven() {
+    let (x,y,z);
+    (y,z,x) = (1,2,3);
+    assert_eq!(x,3);
+    assert_eq!(y,1);
+    assert_eq!(z,2);
+
+    let (x,y) = sum_multiply((2,3));
+
+    assert_eq!(x, 5);
+    assert_eq!(y, 6);
+
+    fn sum_multiply(nums: (i32,i32)) -> (i32,i32) {
+        (nums.0 + nums.1, nums.0 * nums.1)
+    }
+
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: u8,
+        hobby: String
+    }
+
+    let age: u8 = 24;
+    let p: Person = Person {
+        name: String::from("Amo"),
+        age,
+        hobby: String::from("coding"),
+    };
+
+    assert_eq!(p.age, 24);
+    assert_eq!(p.name, "Amo");
+    assert_eq!(p.hobby, "coding");
+    
+    struct Point(i32,i32,i32);
+    let c: Point = Point(54, 42, 23);
+    check(c);
+    fn check(p: Point) {
+        let Point (x, _, c) = p;
+        assert_eq!(x, 54);
+        assert_eq!(p.1, 42);
+        assert_eq!(c,23);
+    }
+
+    let mut p: Person = Person {
+        name: String::from("Amo"),
+        age,
+        hobby: String::from("coding"),
+    };
+
+    p.age = 30;
+    p.name = String::from("value");
+
+    assert_eq!(p.age, 30);
+    assert_eq!(p.name, "value");
+    assert_eq!(p.hobby, "coding");
+    
+    fn build_person(name: String, age: u8) -> Person {
+        Person {
+            name,
+            age,
+            hobby: String::from("coding"),
+        }
+    }
+
+    let o: Person = build_person(String::from("Bo"), 54);
+
+    assert_eq!(o.age, 54);
+    assert_eq!(o.name, "Bo");
+    assert_eq!(o.hobby, "coding");
+
+    fn clone_with_diff(u: Person, name: String) -> Person {
+        Person {
+            name,
+            ..u
+        }
+    }
+
+    let o2: Person = clone_with_diff(o,String::from("Tom"),);
+
+    assert_eq!(o2.age, 54);
+    assert_eq!(o2.name, "Tom");
+    assert_eq!(o2.hobby, "coding");
+
+    let name: String = o2.name.clone();
+    assert_eq!(o2.name, name);
+
+    // println!("{:?}", o2);
+    // dbg!(&o2);
+
 
 }
