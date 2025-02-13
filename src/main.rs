@@ -9,6 +9,7 @@ fn main() {
     three();
     four();
     five();
+    six();
 }
 
 fn one() {
@@ -315,4 +316,33 @@ fn five() {
     // also need mention, 0..1 weird and mean's more like 0..0, so if we used 0..5 it's means give as items from 0 > 5 not 0 >= 5
     let h: &str = &s3[0..1]; // get first char in s3
     assert_eq!("h", h);
+}
+
+fn six() {
+    let list: [i32; 100] = [1; 100]; // create array with 100 time of 1
+    assert_eq!(list[0], 1);
+    assert_eq!(list.len(), 100);
+
+    let slice: &[i32] = &list[0..3];
+    assert_eq!(slice, [1,1,1]);
+
+    let arr: [char; 3] = ['a','b','c'];
+    let slice: &[char] = &arr[..2];
+    
+    assert_eq!(std::mem::size_of_val(&slice), 16);
+    assert_eq!(std::mem::size_of_val(&arr), 12); // 4+4+4
+
+    let arr: [i32;5] = [1,2,3,4,5];
+    let slice: &[i32] = &arr[1..4];
+    assert_eq!(slice, &[2,3,4]);
+
+    let s: String = String::from("value");
+    let slice:&str = &s[0..2];
+    let slice2: &str = &s[..2];
+    assert_eq!(slice,slice2);
+
+    let mut s: String = String::from("value");
+    let _word: &str = &s[..1];
+    s.clear();
+
 }
