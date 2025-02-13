@@ -11,6 +11,7 @@ fn main() {
     five();
     six();
     seven();
+    eight();
 }
 
 fn one() {
@@ -439,6 +440,87 @@ fn seven() {
 
     // println!("{:?}", o2);
     // dbg!(&o2);
+}
 
+fn eight() {
+    enum Number {
+        Zero = 0,
+        One,
+        Two,
+    }
+
+    enum Number2 {
+        Zero,
+        One,
+        Two,    
+    }
+
+    assert_eq!(Number::Zero  as u8,Number2::Zero  as u8);
+    assert_eq!(Number::One  as u8, Number2::One  as u8);
+    assert_eq!(Number::Two  as u8, Number2::Two  as u8);
+    assert_eq!(Number::One as u8, 1);
+
+    // println!("{}", Number::One as u8);
+    
+    #[derive(Debug)]
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32,i32,i32),
+    }
+
+    let msg1: Message = Message::Move { x: 2, y: 2 };
+    let msg2: Message = Message::Write(String::from("value"));
+
+    let msgs: [Message; 3] = [
+        Message::Quit,
+        Message::Move { x: 1, y: 2 },
+        Message::ChangeColor(255, 255, 0)
+    ];
+
+    if let Message::Move { x: a, y: b } = msg1 {
+        assert_eq!(a,b);
+    } else {
+        panic!("PANIC");
+    }
+
+    if let Message::Write(x) = msg2 {
+        assert_eq!(x, "value");
+    } else {
+        panic!("PANIC");
+    }
+
+    if let Message::ChangeColor(a,b,c) = msgs[2] {
+        assert_eq!(a, 255);
+        assert_eq!(b, 255);
+        assert_eq!(c, 0);
+    } else {
+        panic!("PANIC");
+    }
+
+    // for msg in msgs {
+    //     println!("{:?}", msg);
+    // }
+
+    // enum Option<T> {
+    //     None,
+    //     Some(T), // any type
+    // }
+
+    fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+            None => None,
+            Some(i) => Some(i+1),
+        }
+    }
+
+    let five: Option<i32> = Some(5);
+    let six: Option<i32> = plus_one(five);
+    let _none: Option<i32> = plus_one(None);
+
+    if let Some(n) = six {
+        assert_eq!(n, 6);
+    }
 
 }
