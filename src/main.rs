@@ -1,7 +1,7 @@
-// #[allow(unused_variables)] 
+// #[allow(unused_variables)]
 
-use std::ops::{Range, RangeInclusive}; // importing from std ops only Range and RangeInclusive
 use std::mem::size_of_val;
+use std::ops::{Range, RangeInclusive}; // importing from std ops only Range and RangeInclusive
 
 fn main() {
     one();
@@ -16,21 +16,21 @@ fn main() {
 }
 
 fn one() {
-//     // i32 - 32 bit integer is also default 
-//     // let x: i32 = 5;
+    //     // i32 - 32 bit integer is also default
+    //     // let x: i32 = 5;
     let _y: i32; // standard unused variable
 
-    let mut s: i32 = 1; // can be mutated 
+    let mut s: i32 = 1; // can be mutated
     s += 4;
 
-    assert_eq!(s,5); // give error if not equal
+    assert_eq!(s, 5); // give error if not equal
 
-//     {
-//         let c: i32 = 10;
-//         println!("The value of s: {} and c: {}", s,c)
-//     }
+    //     {
+    //         let c: i32 = 10;
+    //         println!("The value of s: {} and c: {}", s,c)
+    //     }
 
-//     // println!("The value of s: {} and c: {}", s,c) // return error because of local scope
+    //     // println!("The value of s: {} and c: {}", s,c) // return error because of local scope
 
     hello();
     modify();
@@ -38,62 +38,60 @@ fn one() {
     tuple();
 
     fn hello() {
-        let x:&str = "hello";
+        let x: &str = "hello";
         println!("{}, world!", x)
     }
-    
+
     fn modify() {
         let x: i32 = 5;
         {
             let x: i32 = 10;
-            assert_eq!(x,10) // x = 10, true
+            assert_eq!(x, 10) // x = 10, true
         }
-        assert_eq!(x,5); // main X still have value of 5, true
-    
-        let _x: i32 = 42; // reassigning 
-        // println!("{}", x); // 42
+        assert_eq!(x, 5); // main X still have value of 5, true
+
+        let _x: i32 = 42; // reassigning
+                          // println!("{}", x); // 42
     }
-    
+
     fn can() {
         let mut _x: i32 = 1;
         _x = 7;
-        
+
         let _x: i32 = _x;
-        // x += 3; // give error, because of missing "mut" in reassigning 
-    
+        // x += 3; // give error, because of missing "mut" in reassigning
+
         let _y: i32 = 4;
         let _y: &str = "You can assign to other type";
     }
-    
+
     fn tuple() {
-        let (mut x,y) = (1,2);
+        let (mut x, y) = (1, 2);
         x += 2;
-    
-        assert_eq!(x,3);
-        assert_eq!(y,2);
-    
-        let (x,y); // mut?
-        (x,..) = (3,4);
-        [..,y] = [1,2];
-        assert_eq!([x,y], [3,2]);
-    
-//         println!("Success!")
+
+        assert_eq!(x, 3);
+        assert_eq!(y, 2);
+
+        let (x, y); // mut?
+        (x, ..) = (3, 4);
+        [.., y] = [1, 2];
+        assert_eq!([x, y], [3, 2]);
+
+        //         println!("Success!")
     }
-    
 }
 
 fn two() {
-
     // println!("{}, {}", 128>>2, 1<<5); // 32, 32
 
-    assert_eq!((1..5), Range{ start: 1, end: 5});
+    assert_eq!((1..5), Range { start: 1, end: 5 });
     assert_eq!((1..=5), RangeInclusive::new(1, 5));
 
     assert!(1u32 + 2u32 == 3u32);
     assert!(1i32 - 2i32 == -1i32);
     // assert!(1u8 - 2 == -1); // error
 
-    assert!(3*50 == 150);
+    assert!(3 * 50 == 150);
     assert!(9.6_f32 / 3.2_f32 == 3.0_f32);
     assert!(24 % 5 == 4);
     assert!(true && false == false);
@@ -103,7 +101,7 @@ fn two() {
     // println!("0011 AND 0101 is {:04b}", 0b0011u32 & 0b0101); // 0001
     // println!("0011 OR 0101 is {:04b}", 0b0011u32 | 0b0101); // 0111
     // println!("0011 XOR 0101 is {:04b}", 0b0011u32 ^ 0b0101); // 0110 | shift + 6 = ^
-    // println!("1 << 5 is {}", 1u32 << 5); // 32 
+    // println!("1 << 5 is {}", 1u32 << 5); // 32
     // println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2); // 0x20
 
     let mut sum: i32 = 0;
@@ -118,8 +116,8 @@ fn two() {
     //     println!("{}",c as u8)
     // }
 
-    // assert!(0.1+0.2==0.3); // error because of 0.1+0.2 returns 0.30000000000000004 
-    assert!(0.1_f32+0.2_f32==0.3 as f32); // so instead we can use f32
+    // assert!(0.1+0.2==0.3); // error because of 0.1+0.2 returns 0.30000000000000004
+    assert!(0.1_f32 + 0.2_f32 == 0.3 as f32); // so instead we can use f32
 
     let x: f64 = 1_000_000.000_1;
     // let y: f32 = 1.12;
@@ -140,20 +138,20 @@ fn two() {
     assert_eq!(u8::MAX, 255);
 
     let f: u16 = 38_u8 as u16;
-    assert_eq!("u16", type_of(&f)); 
+    assert_eq!("u16", type_of(&f));
 
-    fn type_of<T>(_:&T) -> String {
+    fn type_of<T>(_: &T) -> String {
         format!("{}", std::any::type_name::<T>()) // wow
     }
 
-    assign();    
+    assign();
     fn assign() {
-    //     let x: i32 = 5;
-    //     let mut y: u32 = 2;
+        //     let x: i32 = 5;
+        //     let mut y: u32 = 2;
 
-    //     // y = x; // return error, because of different type
+        //     // y = x; // return error, because of different type
 
-    //     let z: i32 = 10;
+        //     let z: i32 = 10;
     }
 
     // just i funny reminder
@@ -163,21 +161,21 @@ fn two() {
         | 2(7) | 2(6) | 2(5) | 2(4) | 2(3) | 2(2) | 2(1) | 2(0) |
         | 128|   64   | 32   |  16  |  8  |   4  |  2   |   1  |
         |-----------------------------------------------------|
-    
-        so it's mean 
+
+        so it's mean
         i8 min: -128 and max 127
         but
         u8 min: 0 and max 255
-    
+
         for float f32-f64 by IEEE-754 specification
     */
 }
 
 fn three() {
-    // char 
+    // char
     let c1: char = 'a'; // 4 bytes
-    let c2: char = '本';// also 4 bytes
-    // println!("{},{}", size_of_val(&c1),size_of_val(&c2));
+    let c2: char = '本'; // also 4 bytes
+                         // println!("{},{}", size_of_val(&c1),size_of_val(&c2));
     assert_eq!(size_of_val(&c1), 4);
     assert_eq!(size_of_val(&c2), 4);
 
@@ -195,11 +193,11 @@ fn three() {
 
     let f: bool = false;
     let t: bool = true && false;
-    assert_eq!(t,f);
+    assert_eq!(t, f);
 
     let t: () = ();
-    let _t: (i32,i32) = (2,3);
-    assert_eq!(t,implicitly_ret_unit());
+    let _t: (i32, i32) = (2, 3);
+    assert_eq!(t, implicitly_ret_unit());
 
     assert!(size_of_val(&t) == 0);
 
@@ -210,18 +208,17 @@ fn three() {
     fn implicitly_ret_unit() -> () {
         // println!("return ()");
     }
-
 }
 
 fn four() {
-    let x:u32 = 5u32;
+    let x: u32 = 5u32;
 
     // statement?
-    let _y:u32 = {
+    let _y: u32 = {
         // expressions
         let x_squared: u32 = x * x;
         let x_cube: u32 = x_squared * x;
-        
+
         // this will be returned and assigned to "y"
         x_cube + x_squared + x
     };
@@ -231,22 +228,21 @@ fn four() {
         // 2 * _y;
     };
 
-    let b:i32  = {
+    let b: i32 = {
         let x: i32 = 1;
         x + 2
     };
 
     assert_eq!(b, 3);
 
-    let a: i32 = sum(2,43);
+    let a: i32 = sum(2, 43);
 
-    fn sum(q: i32, w:i32) -> i32 {
+    fn sum(q: i32, w: i32) -> i32 {
         // return q+w; // this also works
         q + w
     }
 
     assert_eq!(a, 45);
-    
 }
 
 fn five() {
@@ -265,10 +261,10 @@ fn five() {
 
     assert_eq!(q, ());
 
-    // ownership 
+    // ownership
     let x: String = String::from("hello");
     let _s: String = x.clone(); // so we need to use clone() because if we put just x here, the x variable itself will be removed
-    // println!("{}, {}", x,_s);
+                                // println!("{}, {}", x,_s);
 
     let x: Box<i32> = Box::new(1);
     let mut y: Box<i32> = Box::new(1);
@@ -293,12 +289,12 @@ fn five() {
     let _s: String = t.0;
     // println!("{:?}", t.1); // i cant use t and t.0, but still can use t.1
 
-    let c:char = 'c';
+    let c: char = 'c';
     let r1: &char = &c; // create ref
     let ref r2 = *r1; // REF FOR REF LOL
 
-    assert_eq!(r1,r2);
-    assert_eq!(*r1,c); // * returns value
+    assert_eq!(r1, r2);
+    assert_eq!(*r1, c); // * returns value
 
     assert_eq!(format!("{:p}", &c), format!("{:p}", r1));
 
@@ -327,44 +323,43 @@ fn six() {
     assert_eq!(list.len(), 100);
 
     let slice: &[i32] = &list[0..3];
-    assert_eq!(slice, [1,1,1]);
+    assert_eq!(slice, [1, 1, 1]);
 
-    let arr: [char; 3] = ['a','b','c'];
+    let arr: [char; 3] = ['a', 'b', 'c'];
     let slice: &[char] = &arr[..2];
-    
+
     assert_eq!(std::mem::size_of_val(&slice), 16);
     assert_eq!(std::mem::size_of_val(&arr), 12); // 4+4+4
 
-    let arr: [i32;5] = [1,2,3,4,5];
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
     let slice: &[i32] = &arr[1..4];
-    assert_eq!(slice, &[2,3,4]);
+    assert_eq!(slice, &[2, 3, 4]);
 
     let s: String = String::from("value");
-    let slice:&str = &s[0..2];
+    let slice: &str = &s[0..2];
     let slice2: &str = &s[..2];
-    assert_eq!(slice,slice2);
+    assert_eq!(slice, slice2);
 
     let mut s: String = String::from("value");
     let word: &str = &s[..1];
-    assert_eq!(word,"v");
+    assert_eq!(word, "v");
 
     s.clear();
-
 }
 
 fn seven() {
-    let (x,y,z);
-    (y,z,x) = (1,2,3);
-    assert_eq!(x,3);
-    assert_eq!(y,1);
-    assert_eq!(z,2);
+    let (x, y, z);
+    (y, z, x) = (1, 2, 3);
+    assert_eq!(x, 3);
+    assert_eq!(y, 1);
+    assert_eq!(z, 2);
 
-    let (x,y) = sum_multiply((2,3));
+    let (x, y) = sum_multiply((2, 3));
 
     assert_eq!(x, 5);
     assert_eq!(y, 6);
 
-    fn sum_multiply(nums: (i32,i32)) -> (i32,i32) {
+    fn sum_multiply(nums: (i32, i32)) -> (i32, i32) {
         (nums.0 + nums.1, nums.0 * nums.1)
     }
 
@@ -372,7 +367,7 @@ fn seven() {
     struct Person {
         name: String,
         age: u8,
-        hobby: String
+        hobby: String,
     }
 
     let age: u8 = 24;
@@ -385,15 +380,15 @@ fn seven() {
     assert_eq!(p.age, 24);
     assert_eq!(p.name, "Amo");
     assert_eq!(p.hobby, "coding");
-    
-    struct Point(i32,i32,i32);
+
+    struct Point(i32, i32, i32);
     let c: Point = Point(54, 42, 23);
     check(c);
     fn check(p: Point) {
-        let Point (x, _, c) = p;
+        let Point(x, _, c) = p;
         assert_eq!(x, 54);
         assert_eq!(p.1, 42);
-        assert_eq!(c,23);
+        assert_eq!(c, 23);
     }
 
     let mut p: Person = Person {
@@ -408,7 +403,7 @@ fn seven() {
     assert_eq!(p.age, 30);
     assert_eq!(p.name, "value");
     assert_eq!(p.hobby, "coding");
-    
+
     fn build_person(name: String, age: u8) -> Person {
         Person {
             name,
@@ -424,13 +419,10 @@ fn seven() {
     assert_eq!(o.hobby, "coding");
 
     fn clone_with_diff(u: Person, name: String) -> Person {
-        Person {
-            name,
-            ..u
-        }
+        Person { name, ..u }
     }
 
-    let o2: Person = clone_with_diff(o,String::from("Tom"),);
+    let o2: Person = clone_with_diff(o, String::from("Tom"));
 
     assert_eq!(o2.age, 54);
     assert_eq!(o2.name, "Tom");
@@ -453,22 +445,22 @@ fn eight() {
     enum Number2 {
         Zero,
         One,
-        Two,    
+        Two,
     }
 
-    assert_eq!(Number::Zero  as u8,Number2::Zero  as u8);
-    assert_eq!(Number::One  as u8, Number2::One  as u8);
-    assert_eq!(Number::Two  as u8, Number2::Two  as u8);
+    assert_eq!(Number::Zero as u8, Number2::Zero as u8);
+    assert_eq!(Number::One as u8, Number2::One as u8);
+    assert_eq!(Number::Two as u8, Number2::Two as u8);
     assert_eq!(Number::One as u8, 1);
 
     // println!("{}", Number::One as u8);
-    
+
     #[derive(Debug)]
     enum Message {
         Quit,
         Move { x: i32, y: i32 },
         Write(String),
-        ChangeColor(i32,i32,i32),
+        ChangeColor(i32, i32, i32),
     }
 
     let msg1: Message = Message::Move { x: 2, y: 2 };
@@ -477,11 +469,11 @@ fn eight() {
     let msgs: [Message; 3] = [
         Message::Quit,
         Message::Move { x: 1, y: 2 },
-        Message::ChangeColor(255, 255, 0)
+        Message::ChangeColor(255, 255, 0),
     ];
 
     if let Message::Move { x: a, y: b } = msg1 {
-        assert_eq!(a,b);
+        assert_eq!(a, b);
     } else {
         panic!("PANIC");
     }
@@ -492,7 +484,7 @@ fn eight() {
         panic!("PANIC");
     }
 
-    if let Message::ChangeColor(a,b,c) = msgs[2] {
+    if let Message::ChangeColor(a, b, c) = msgs[2] {
         assert_eq!(a, 255);
         assert_eq!(b, 255);
         assert_eq!(c, 0);
@@ -512,7 +504,7 @@ fn eight() {
     fn plus_one(x: Option<i32>) -> Option<i32> {
         match x {
             None => None,
-            Some(i) => Some(i+1),
+            Some(i) => Some(i + 1),
         }
     }
 
@@ -523,15 +515,14 @@ fn eight() {
     if let Some(n) = six {
         assert_eq!(n, 6);
     }
-
 }
 
 fn nine() {
-    let a: [i32; 4] = [4,3,2,1];
-    for (i,v) in a.iter().enumerate() {
+    let a: [i32; 4] = [4, 3, 2, 1];
+    for (i, v) in a.iter().enumerate() {
         if i == 0 {
             assert!(i == 0 && *v == 4);
-        } else if i == 1 {        
+        } else if i == 1 {
             assert!(i == 1 && *v == 3);
         } else if i == 2 {
             assert!(i == 2 && *v == 2);
@@ -598,16 +589,16 @@ fn nine() {
         }
         break 'outer;
     }
-    assert_eq!(count,30);
-    
-    let a: [char; 7] = ['a','E','Z','0','x','9', 'Y'];
+    assert_eq!(count, 30);
+
+    let a: [char; 7] = ['a', 'E', 'Z', '0', 'x', '9', 'Y'];
     for c in a {
         assert!(matches!(c, 'A'..='Z' | 'a'..='z' | '0'..='9'));
     }
 
     let o: Option<i32> = Some(7);
     if let Some(i) = o {
-        assert_eq!(i,7);
+        assert_eq!(i, 7);
     }
 
     #[derive(Debug)]
@@ -618,16 +609,14 @@ fn nine() {
 
     impl Rectangle {
         fn new(width: u32, height: u32) -> Rectangle {
-            Rectangle {
-                width, height
-            }
+            Rectangle { width, height }
         }
 
         fn area(&self) -> u32 {
             self.width * self.height
         }
 
-        fn change_width(&mut self, value:u32) {
+        fn change_width(&mut self, value: u32) {
             self.width = value
         }
     }
@@ -640,5 +629,4 @@ fn nine() {
 
     rect.change_width(30);
     assert_eq!(rect.area(), 1500);
-
 }
