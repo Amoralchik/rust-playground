@@ -12,6 +12,7 @@ fn main() {
     six();
     seven();
     eight();
+    nine();
 }
 
 fn one() {
@@ -522,5 +523,122 @@ fn eight() {
     if let Some(n) = six {
         assert_eq!(n, 6);
     }
+
+}
+
+fn nine() {
+    let a: [i32; 4] = [4,3,2,1];
+    for (i,v) in a.iter().enumerate() {
+        if i == 0 {
+            assert!(i == 0 && *v == 4);
+        } else if i == 1 {        
+            assert!(i == 1 && *v == 3);
+        } else if i == 2 {
+            assert!(i == 2 && *v == 2);
+        } else {
+            assert!(i == 3 && *v == 1);
+        }
+    }
+
+    let mut n: i32 = 1;
+    while n < 10 {
+        if n % 15 == 0 {
+            // println!("fizzbuzz")
+        } else if n % 3 == 0 {
+            // println!("fizz")
+        } else if n % 5 == 0 {
+            // println!("buzz")
+        } else {
+            // println!("{}",n)
+        }
+        n += 1;
+    }
+
+    let mut n: i32 = 1;
+    for i in 0..=100 {
+        if n != 70 {
+            n = i;
+            continue;
+        }
+        if n >= 66 {
+            break;
+        }
+    }
+    assert_eq!(n, 70);
+
+    let mut n: i32 = 1;
+    let result: i32 = loop {
+        n += 1;
+        if n == 2 {
+            assert_eq!(n, 2);
+            continue;
+        }
+        if n == 5 {
+            break n * 2; // the only way to end the Loop
+        }
+    };
+
+    assert_eq!(n, 5);
+    assert_eq!(result, 10);
+
+    let mut count: i32 = 0;
+    'outer: loop {
+        'inner1: loop {
+            if count >= 20 {
+                break 'inner1;
+            }
+            count += 2;
+        }
+        count += 5;
+        'inner2: loop {
+            if count >= 30 {
+                break 'inner2;
+            }
+            continue 'outer;
+        }
+        break 'outer;
+    }
+    assert_eq!(count,30);
+    
+    let a: [char; 7] = ['a','E','Z','0','x','9', 'Y'];
+    for c in a {
+        assert!(matches!(c, 'A'..='Z' | 'a'..='z' | '0'..='9'));
+    }
+
+    let o: Option<i32> = Some(7);
+    if let Some(i) = o {
+        assert_eq!(i,7);
+    }
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn new(width: u32, height: u32) -> Rectangle {
+            Rectangle {
+                width, height
+            }
+        }
+
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+
+        fn change_width(&mut self, value:u32) {
+            self.width = value
+        }
+    }
+
+    let mut rect: Rectangle = Rectangle::new(20, 50);
+    // println!("Rectangle: {:?}", rect);
+    assert_eq!(rect.height, 50);
+    assert_eq!(rect.width, 20);
+    assert_eq!(rect.area(), 1000);
+
+    rect.change_width(30);
+    assert_eq!(rect.area(), 1500);
 
 }
