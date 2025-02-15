@@ -13,6 +13,7 @@ fn main() {
     seven();
     eight();
     nine();
+    ten();
 }
 
 fn one() {
@@ -629,4 +630,42 @@ fn nine() {
 
     rect.change_width(30);
     assert_eq!(rect.area(), 1500);
+}
+
+fn ten() {
+    trait Animal {
+        fn sound(&self) -> String;
+
+        fn feed(&self, name: String) -> () {
+            println!("Feeding animal {}", name);
+        }
+    }
+
+    struct Sheep;
+    struct Cow;
+
+    impl Animal for Sheep {
+        fn sound(&self) -> String {
+            String::from("maah")
+        }
+    }
+
+    impl Animal for Cow {
+        fn sound(&self) -> String {
+            String::from("Mooh")
+        }
+
+        fn feed(&self, name: String) -> () {
+            println!("you feed the Cow, {}", name);
+        }
+    }
+
+    let sheep: Sheep = Sheep;
+    let cow: Cow = Cow;
+
+    sheep.feed("Sheep".to_string());
+    println!("{} says", sheep.sound());
+
+    cow.feed("Lisa".to_string());
+    println!("{} says", cow.sound());
 }
