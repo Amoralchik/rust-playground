@@ -1,7 +1,7 @@
 // #[allow(unused_variables)]
 
 use std::mem::size_of_val;
-use std::ops::{Range, RangeInclusive}; // importing from std ops only Range and RangeInclusive
+use std::ops::{Add, Range, RangeInclusive, Sub}; // importing from std ops only Range and RangeInclusive
 
 fn main() {
     one();
@@ -668,4 +668,36 @@ fn ten() {
 
     cow.feed("Lisa".to_string());
     println!("{} says", cow.sound());
+
+    struct Foo;
+    struct Bar;
+    #[derive(PartialEq, Debug)]
+    struct FooBar;
+    #[derive(PartialEq, Debug)]
+    struct BarFoo;
+
+    // Foo + Bar -> Foo.add(Bar)
+    impl Add<Bar> for Foo {
+        type Output = FooBar;
+        fn add(self, _rhs: Bar) -> FooBar {
+            FooBar
+        }
+    }
+
+    // Bar - Foo -> Bar.sub(Bar)
+    impl Sub<Foo> for Bar {
+        type Output = BarFoo;
+        fn sub(self, _rhs: Foo) -> BarFoo {
+            BarFoo
+        }
+    }
+
+    assert_eq!(Foo + Bar, FooBar);
+    assert_eq!(Bar - Foo, BarFoo);
+
+    fn sound<T: Animal>(a: &T) -> String {
+        a.sound()
+    }
+
+    assert_eq!(cow.sound(), sound(&cow));
 }
