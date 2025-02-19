@@ -14,6 +14,7 @@ fn main() {
     eight();
     nine();
     ten();
+    eleven();
 }
 
 fn one() {
@@ -700,4 +701,42 @@ fn ten() {
     }
 
     assert_eq!(cow.sound(), sound(&cow));
+}
+
+fn eleven() {
+    let mut v1: Vec<i32> = Vec::from([1, 2, 4]);
+    v1.pop(); // [1,2]
+    v1.push(3); // [1,2,3]
+
+    let mut v2: Vec<i32> = Vec::new();
+    v2.extend(&v1);
+    assert_eq!(v1, v2);
+
+    let arr: [i32; 3] = [1, 2, 3];
+    let v2: Vec<i32> = arr.into();
+
+    assert_eq!(v1, v2);
+
+    let s: String = "hello".to_string();
+    let v1: Vec<u8> = s.clone().into();
+    let v2: Vec<u8> = Vec::from("hello");
+    let v3: Vec<u8> = s.into_bytes();
+
+    assert_eq!(v1, v2);
+    assert_eq!(v2, v3);
+
+    let mut vector = Vec::with_capacity(10);
+    assert_eq!(vector.len(), 0);
+    assert_eq!(vector.capacity(), 10);
+
+    for i in 0..10 {
+        vector.push(i);
+    }
+
+    assert_eq!(vector.len(), 10);
+    assert_eq!(vector.capacity(), 10);
+
+    vector.push(11);
+    assert_eq!(vector.len(), 11);
+    assert_eq!(vector.capacity(), 20); // >=
 }
